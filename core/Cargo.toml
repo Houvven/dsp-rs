@@ -4,5 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-realfft = "3.4.0"
 rustfft = "6.2.0"

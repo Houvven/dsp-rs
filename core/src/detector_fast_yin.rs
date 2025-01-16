@@ -1,6 +1,6 @@
 use crate::detector::{PitchDetectionResult, PitchDetector};
 use rustfft::num_complex::Complex;
-use rustfft::FftPlanner;
+use rustfft::{Fft, FftPlanner};
 
 struct FastYin {
     sample_rate: f32,
@@ -8,13 +8,15 @@ struct FastYin {
     threshold: f32,
 
     yin_buffer: Vec<f32>,
-    fft_planner: FftPlanner<f32>,
+
+    fft_forward: std::sync::Arc<dyn Fft<f32>>,
+    fft_inverse: std::sync::Arc<dyn Fft<f32>>,
 
     audio_buffer_fft: Vec<Complex<f32>>,
     kernel: Vec<Complex<f32>>,
     yin_style_acf: Vec<Complex<f32>>,
 
-    result: Box<PitchDetectionResult>,
+    result: PitchDetectionResult,
 }
 
 impl PitchDetector for FastYin {
@@ -22,88 +24,85 @@ impl PitchDetector for FastYin {
         self.difference(audio_buffer);
         self.cumulative_mean_normalized_difference();
 
-        let tau_estimate = self.absolute_threshold();
-
-        if tau_estimate == -1 {
+        if let Some(tau_estimate) = self.absolute_threshold() {
             let better_tau = self.parabolic_interpolation(tau_estimate);
             self.result.frequency = self.sample_rate / better_tau;
+            self.result.pitched = true;
         } else {
             self.result.frequency = -1.0;
+            self.result.pitched = false;
         }
 
-        *self.result
+        self.result.clone()
     }
 }
 
 impl FastYin {
-    fn new(sample_rate: f32, buffer_size: usize, yin_threshold: f32) -> Self {
-        FastYin {
+    pub fn new(sample_rate: f32, buffer_size: usize, threshold: f32) -> Self {
+        let buffer_size_half = buffer_size / 2;
+        let mut fft_planner = FftPlanner::new();
+        let fft_forward = fft_planner.plan_fft_forward(buffer_size);
+        let fft_inverse = fft_planner.plan_fft_inverse(buffer_size);
+        let complex_zero_buffer = vec![Complex::new(0.0, 0.0); buffer_size];
+
+        Self {
             sample_rate,
             buffer_size,
-            threshold: yin_threshold,
-            yin_buffer: vec![0.0; buffer_size / 2],
-            fft_planner: FftPlanner::new(),
-            audio_buffer_fft: vec![Complex::new(0.0, 0.0); buffer_size],
-            kernel: vec![Complex::new(0.0, 0.0); buffer_size],
-            yin_style_acf: vec![Complex::new(0.0, 0.0); buffer_size],
-            result: Box::new(PitchDetectionResult::default()),
+            threshold,
+            yin_buffer: vec![0.0; buffer_size_half],
+            fft_forward,
+            fft_inverse,
+            audio_buffer_fft: complex_zero_buffer.clone(),
+            kernel: complex_zero_buffer.clone(),
+            yin_style_acf: complex_zero_buffer,
+            result: PitchDetectionResult::default(),
         }
     }
 
     fn difference(&mut self, audio_buffer: &[f32]) {
         assert!(audio_buffer.len() >= self.buffer_size);
+        let window_size = self.yin_buffer.len();
 
-        let power_terms = Vec::with_capacity(self.yin_buffer.len());
-        for j in 0..self.yin_buffer.len() {
+        let mut power_terms = vec![0.0; window_size];
+        for j in 0..window_size {
             power_terms[j] += audio_buffer[j] * audio_buffer[j];
         }
-        for tau in 1..self.yin_buffer.len() {
+
+        for tau in 1..window_size {
             power_terms[tau] = power_terms[tau - 1] - audio_buffer[tau - 1] * audio_buffer[tau - 1]
-                + audio_buffer[tau + self.yin_buffer.len()]
-                    * audio_buffer[tau + self.yin_buffer.len()];
+                + audio_buffer[tau + window_size] * audio_buffer[tau + window_size];
         }
 
-        // 1. data
-        self.audio_buffer_fft = (0..audio_buffer.len())
-            .map(|i| Complex::new(audio_buffer[i], 0.0))
-            .collect();
+        self.audio_buffer_fft
+            .iter_mut()
+            .enumerate()
+            .for_each(|(i, c)| {
+                *c = Complex::new(audio_buffer[i], 0.0);
+            });
+        self.fft_forward.process(&mut self.audio_buffer_fft);
+        for (i, c) in self.kernel.iter_mut().enumerate() {
+            *c = if i < window_size {
+                Complex::new(audio_buffer[window_size - 1 - i], 0.0)
+            } else {
+                Complex::new(0.0, 0.0)
+            };
+        }
+        self.fft_forward.process(&mut self.kernel);
 
-        let fft_forward = self
-            .fft_planner
-            .plan_fft_forward(self.audio_buffer_fft.len());
-        fft_forward.process(&mut self.audio_buffer_fft);
+        for (i, c) in self.yin_style_acf.iter_mut().enumerate() {
+            *c = self.audio_buffer_fft[i] * self.kernel[i];
+        }
+        self.fft_inverse.process(&mut self.yin_style_acf);
 
-        // 2. half of the data, disguised as a convolution kernel
-        (0..audio_buffer.len()).for_each(|i| {
-            self.kernel[i] = Complex::new(audio_buffer[self.yin_buffer.len() - 1] - i as f32, 0f32);
-            self.kernel[i * 2 + audio_buffer.len()] = Complex::new(0f32, 0f32);
-        });
-        fft_forward.process(&mut self.kernel);
-
-        // 3. convolution via complex multiplication
-        (0..audio_buffer.len()).for_each(|i| {
-            let re = self.audio_buffer_fft[i].re * self.kernel[i].re
-                - self.audio_buffer_fft[i].im * self.kernel[i].im;
-            let im = self.audio_buffer_fft[i].im * self.kernel[i].re
-                + self.audio_buffer_fft[i].re * self.kernel[i].im;
-            self.yin_style_acf[i] = Complex::new(re, im);
-        });
-
-        let fft_inverse = self
-            .fft_planner
-            .plan_fft_inverse(self.audio_buffer_fft.len());
-        fft_inverse.process(&mut self.yin_style_acf);
-
-        // CALCULATION OF difference function
-        for i in 0..self.yin_buffer.len() {
-            self.yin_buffer[i] = power_terms[0] + power_terms[i]
-                - 2.0 * self.yin_style_acf[2 * (self.yin_buffer.len() - 1 + i)].re;
+        for (i, y) in self.yin_buffer.iter_mut().enumerate() {
+            *y = power_terms[0] + power_terms[i]
+                - 2.0 * self.yin_style_acf[2 * (window_size - 1 + i)].re;
         }
     }
 
-    fn cumulative_mean_normalized_difference(&self) {
-        let mut running_sum = 0f32;
-        self.yin_buffer[0] = 1f32;
+    fn cumulative_mean_normalized_difference(&mut self) {
+        let mut running_sum = 0.0;
+        self.yin_buffer[0] = 1.0;
 
         for tau in 1..self.yin_buffer.len() {
             running_sum += self.yin_buffer[tau];
@@ -111,11 +110,11 @@ impl FastYin {
         }
     }
 
-    fn absolute_threshold(&mut self) -> i32 {
-        let mut tau: i32 = 2;
-        while tau < self.yin_buffer.len() as i32 {
+    fn absolute_threshold(&mut self) -> Option<usize> {
+        let mut tau = 2usize;
+        while tau < self.yin_buffer.len() {
             if self.yin_buffer[tau] < self.threshold {
-                while tau + 1 < self.yin_buffer.len() as i32
+                while tau + 1 < self.yin_buffer.len()
                     && self.yin_buffer[tau + 1] < self.yin_buffer[tau]
                 {
                     tau += 1;
@@ -126,63 +125,58 @@ impl FastYin {
             tau += 1;
         }
 
-        if tau == self.yin_buffer.len() as i32
+        if tau == self.yin_buffer.len()
             || self.yin_buffer[tau] >= self.threshold
             || self.result.probability > 1.0
         {
-            tau = -1;
-            self.result.probability = 0.0;
-            self.result.pitched = false;
+            None
         } else {
-            self.result.pitched = true;
+            Some(tau)
         }
-
-        tau
     }
 
-    fn parabolic_interpolation(&self, tau_estimate: i32) -> f32 {
-        let x0: i32;
-        let x2: i32;
-        let better_tau: f32;
-
-        if tau_estimate < 1 {
-            x0 = tau_estimate;
+    fn parabolic_interpolation(&self, tau_estimate: usize) -> f32 {
+        let x0: usize = if tau_estimate < 1 {
+            tau_estimate
         } else {
-            x0 = tau_estimate - 1;
-        }
-
-        if tau_estimate + 1 < self.yin_buffer.len() as i32 {
-            x2 = tau_estimate + 1;
+            tau_estimate - 1
+        };
+        let x2: usize = if tau_estimate + 1 < self.yin_buffer.len() {
+            tau_estimate + 1
         } else {
-            x2 = tau_estimate;
-        }
+            tau_estimate
+        };
 
         if x0 == tau_estimate {
             if self.yin_buffer[tau_estimate] <= self.yin_buffer[x2] {
-                better_tau = tau_estimate as f32;
+                tau_estimate as f32
             } else {
-                better_tau = x2 as f32;
+                x2 as f32
             }
         } else if x2 == tau_estimate {
             if self.yin_buffer[tau_estimate] <= self.yin_buffer[x0] {
-                better_tau = tau_estimate as f32;
+                tau_estimate as f32
             } else {
-                better_tau = x0 as f32;
+                x0 as f32
             }
         } else {
-            let s0: f32 = self.yin_buffer[x0];
-            let s1: f32 = self.yin_buffer[tau_estimate];
-            let s2: f32 = self.yin_buffer[x2];
-            better_tau = tau_estimate as f32 + (s2 - s0) / (2.0 * (2.0 * s1 - s2 - s0));
+            let s0 = self.yin_buffer[x0];
+            let s1 = self.yin_buffer[tau_estimate];
+            let s2 = self.yin_buffer[x2];
+            tau_estimate as f32 + (s2 - s0) / (2.0 * (2.0 * s1 - s2 - s0))
         }
-
-        better_tau
     }
 }
 
 #[cfg(test)]
 mod test {
     use rustfft::{num_complex::Complex, FftPlanner};
+
+    #[test]
+    fn test_saturating_sub() {
+        let a: usize = 88;
+        println!("a: {}", a.saturating_sub(1))
+    }
 
     #[test]
     fn test_fft() {
