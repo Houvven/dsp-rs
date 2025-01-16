@@ -73,7 +73,6 @@ dependencies = [
 name = "dsp-core"
 version = "0.1.0"
 dependencies = [
- "realfft",
  "rustfft",
 ]
 
@@ -250,15 +249,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0e4dccaaaf89514f546c693ddc140f729f958c247918a13380cccc6078391acc"
 dependencies = [
  "proc-macro2",
-]
-
-[[package]]
-name = "realfft"
-version = "3.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "390252372b7f2aac8360fc5e72eba10136b166d6faeed97e6d0c8324eb99b2b1"
-dependencies = [
- "rustfft",
 ]
 
 [[package]]

@@ -1,4 +1,3 @@
-mod fast_yin;
 
 use napi_derive_ohos::napi;
 
