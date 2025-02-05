@@ -1,16 +1,18 @@
 use crate::detector::{PitchDetectionResult, PitchDetector};
+use rayon::prelude::*;
 use rustfft::num_complex::Complex;
 use rustfft::{Fft, FftPlanner};
+use std::sync::Arc;
 
-struct FastYin {
+pub struct FastYin {
     sample_rate: f32,
     buffer_size: usize,
     threshold: f32,
 
     yin_buffer: Vec<f32>,
 
-    fft_forward: std::sync::Arc<dyn Fft<f32>>,
-    fft_inverse: std::sync::Arc<dyn Fft<f32>>,
+    fft_forward: Arc<dyn Fft<f32>>,
+    fft_inverse: Arc<dyn Fft<f32>>,
 
     audio_buffer_fft: Vec<Complex<f32>>,
     kernel: Vec<Complex<f32>>,
@@ -20,7 +22,7 @@ struct FastYin {
 }
 
 impl PitchDetector for FastYin {
-    fn get_pitch(&mut self, audio_buffer: &[f32]) -> PitchDetectionResult {
+    fn detect(&mut self, audio_buffer: &[f32]) -> PitchDetectionResult {
         self.difference(audio_buffer);
         self.cumulative_mean_normalized_difference();
 
@@ -38,7 +40,7 @@ impl PitchDetector for FastYin {
 }
 
 impl FastYin {
-    pub fn new(sample_rate: f32, buffer_size: usize, threshold: f32) -> Self {
+    pub fn new(sample_rate: f32, buffer_size: usize) -> Self {
         let buffer_size_half = buffer_size / 2;
         let mut fft_planner = FftPlanner::new();
         let fft_forward = fft_planner.plan_fft_forward(buffer_size);
@@ -48,7 +50,7 @@ impl FastYin {
         Self {
             sample_rate,
             buffer_size,
-            threshold,
+            threshold: 0.20,
             yin_buffer: vec![0.0; buffer_size_half],
             fft_forward,
             fft_inverse,
@@ -64,15 +66,14 @@ impl FastYin {
         let window_size = self.yin_buffer.len();
 
         let mut power_terms = vec![0.0; window_size];
-        for j in 0..window_size {
-            power_terms[j] += audio_buffer[j] * audio_buffer[j];
-        }
+        power_terms[0] = audio_buffer.iter().take(window_size).map(|&x| x * x).sum();
 
         for tau in 1..window_size {
             power_terms[tau] = power_terms[tau - 1] - audio_buffer[tau - 1] * audio_buffer[tau - 1]
                 + audio_buffer[tau + window_size] * audio_buffer[tau + window_size];
         }
 
+        // 1. data
         self.audio_buffer_fft
             .iter_mut()
             .enumerate()
@@ -80,6 +81,8 @@ impl FastYin {
                 *c = Complex::new(audio_buffer[i], 0.0);
             });
         self.fft_forward.process(&mut self.audio_buffer_fft);
+
+        // 2. half of the data, disguised as a convolution kernel
         for (i, c) in self.kernel.iter_mut().enumerate() {
             *c = if i < window_size {
                 Complex::new(audio_buffer[window_size - 1 - i], 0.0)
@@ -93,10 +96,17 @@ impl FastYin {
             *c = self.audio_buffer_fft[i] * self.kernel[i];
         }
         self.fft_inverse.process(&mut self.yin_style_acf);
+        let norm = 1.0 / self.buffer_size as f32;
+        self.yin_style_acf
+            .iter_mut()
+            .enumerate()
+            .for_each(|(i, c)| {
+                *c *= norm;
+            });
 
-        for (i, y) in self.yin_buffer.iter_mut().enumerate() {
-            *y = power_terms[0] + power_terms[i]
-                - 2.0 * self.yin_style_acf[2 * (window_size - 1 + i)].re;
+        // 𝑑 ( 𝜏 ) = power_terms [ 0 ] + power_terms [ 𝜏 ] − 2 ⋅ Re ( yin_style_acf [ 𝜏 ] )
+        for (i, yin_buffer) in self.yin_buffer.iter_mut().enumerate() {
+            *yin_buffer = power_terms[0] + power_terms[i] - 2.0 * self.yin_style_acf[window_size - 1 + i].re;
         }
     }
 
@@ -170,12 +180,34 @@ impl FastYin {
 
 #[cfg(test)]
 mod test {
+    use crate::detector::PitchDetector;
     use rustfft::{num_complex::Complex, FftPlanner};
+    use std::f32::consts::PI;
+
+    fn generate_audio_buffer(frequency: f32, sample_rate: f32, buffer_size: usize) -> Vec<f32> {
+        let mut buffer = Vec::with_capacity(buffer_size);
+        let two_pi = 2.0 * PI;
+
+        for i in 0..buffer_size {
+            let t = i as f32 / sample_rate;
+            let sample = (two_pi * frequency * t).sin();
+            buffer.push(sample);
+        }
+
+        buffer
+    }
 
     #[test]
-    fn test_saturating_sub() {
-        let a: usize = 88;
-        println!("a: {}", a.saturating_sub(1))
+    fn tmp_test() {}
+
+    #[test]
+    fn test_detector() {
+        let size = 2048;
+        let sample_rate = 44100.0;
+        let mut detector = super::FastYin::new(sample_rate, size);
+        let buffer = generate_audio_buffer(110.0, sample_rate, size);
+        let result = detector.detect(&buffer);
+        println!("result: {:?}", result)
     }
 
     #[test]

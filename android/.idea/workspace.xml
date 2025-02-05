@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="30ca858b-6e28-4d92-881a-d6672940e233" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/0d91ca89972ac34c2d95b5daba0e48f9296475e5/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/0d91ca89972ac34c2d95b5daba0e48f9296475e5/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/0d91ca89972ac34c2d95b5daba0e48f9296475e5/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/1aa327abf03c0ad388ab658a74719b9af08d1fdc/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/1aa327abf03c0ad388ab658a74719b9af08d1fdc/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/1aa327abf03c0ad388ab658a74719b9af08d1fdc/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/34742dd12f00b34a3429274abd91c58828995a23/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/34742dd12f00b34a3429274abd91c58828995a23/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/34742dd12f00b34a3429274abd91c58828995a23/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/4bd0c92f0be9af9c690ded4da13422daee0c259c/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/4bd0c92f0be9af9c690ded4da13422daee0c259c/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/4bd0c92f0be9af9c690ded4da13422daee0c259c/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/5d97740485c9f095e47131fcaa61239b090de3a2/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/5d97740485c9f095e47131fcaa61239b090de3a2/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/5d97740485c9f095e47131fcaa61239b090de3a2/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/5fa6d879050d8edc89fc2372788884a3aec58306/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/5fa6d879050d8edc89fc2372788884a3aec58306/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/5fa6d879050d8edc89fc2372788884a3aec58306/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/d26ca82be682d3acfb37453546d2d2601c419863/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/d26ca82be682d3acfb37453546d2d2601c419863/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/d26ca82be682d3acfb37453546d2d2601c419863/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/d9a6dc16d15262c7bcb68684e4be4d8a9c0657fe/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/d9a6dc16d15262c7bcb68684e4be4d8a9c0657fe/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/d9a6dc16d15262c7bcb68684e4be4d8a9c0657fe/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/dependencies-accessors/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/8.10.2/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/file-system.probe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/dsp/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/dsp/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/dsp/consumer-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/dsp/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/dsp/src/androidTest/java/com/houvven/dsp/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/dsp/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/dsp/src/test/java/com/houvven/dsp/ExampleUnitTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/local.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android-lib/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dsp.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../core/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/detector.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/detector.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/detector_fast_yin.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/detector_fast_yin.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ohos/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../ohos/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ohos/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../ohos/src/lib.rs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=FIB6TGXCDE5P5HB6)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dsp-rs" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Houvven"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Houvven/dsp-rs.git",
+    "accountId": "287c99ae-d5a1-4c1a-bebc-a924b66585d4"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2s49W6RiXo2V1ltpJDEtF5OIMje" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "android.gradle.sync.needed": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/houvven/Projects/dsp-rs/android",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="andorid.app" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="andorid" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="30ca858b-6e28-4d92-881a-d6672940e233" name="Changes" comment="" />
+      <created>1737704008831</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1737704008831</updated>
+    </task>
+    <servers />
+  </component>
+</project>

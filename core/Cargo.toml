@@ -5,3 +5,5 @@ edition = "2021"
 
 [dependencies]
 rustfft = "6.2.0"
+rayon = "1.10.0"
+once_cell = "1.20.2"

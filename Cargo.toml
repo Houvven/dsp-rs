@@ -1,4 +1,2 @@
-
-
 [workspace]
-members = ["core", "ohos"]
+members = ["core", "ohos", "android"]
